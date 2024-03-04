@@ -14,7 +14,7 @@ namespace GitProjectAspNet.Models
 
         public static bool authentification(Utilisateur utilisateur)
         {
-            var req = $"SELECT nomutilisateur, motdepasse FROM public.utilisateur WHERE nomutilisateur = '{utilisateur.NomUtilisateur}' AND \"motdepasse\" ='{utilisateur.MotDePasse}'";
+            var req = $"SELECT nomutilisateur, motdepasse FROM public.utilisateur WHERE nomutilisateur = '{utilisateur.NomUtilisateur}' AND \"motdepasse\" ='{utilisateur.MotdePasse}'";
             var hasUser = false;
             try
             {
