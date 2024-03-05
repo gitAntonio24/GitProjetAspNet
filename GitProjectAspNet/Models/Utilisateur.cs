@@ -7,36 +7,28 @@ namespace GitProjectAspNet.Models
 {
     public class Utilisateur
     {
-        private string _nomUtilisateur;
-        private string _motDePasse;
+        private string _nomutilisateur;
+        private string _motdepasse;
         private string _email;
 
-        public Utilisateur(string nomUtilisateur, string motDePasse, string email)
+        public string NomUtilisateur
         {
-            _nomUtilisateur = nomUtilisateur;
-            _motDePasse = motDePasse;
-            _email = email;
+            get { return _nomutilisateur; }
+            set { _nomutilisateur = value; }
         }
 
-        public Utilisateur() { }
-     
-        public string  Email
+        public string MotdePasse
+        {
+            get { return _motdepasse; }
+            set { _motdepasse = value; }
+        }
+
+        public string Email
         {
             get { return _email; }
             set { _email = value; }
         }
 
-        public string MotDePasse
-        {
-            get { return _motDePasse; }
-            set { _motDePasse = value; }
-        }
-
-        public string NomUtilisateur
-        {
-            get { return _nomUtilisateur; }
-            set { _nomUtilisateur = value; }
-        }
 
     }
 }
