@@ -8,8 +8,13 @@
 <h2>Tache</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <!-- @Html.ActionLink("Ajouter tache", "Login")-->
+    <button type="button" class="btn btn-Secondary" data-toggle="modal" data-target="#exampleModal">
+        Ajouter tache
+    </button>
 </p>
+
+
 <table class="table">
     <tr>
         <th>
@@ -27,26 +32,51 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdTache)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Statut)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TacheNomUtilisateur)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdTache)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Statut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TacheNomUtilisateur)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdTache }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdTache }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdTache })
+            </td>
+        </tr>
 
+    }
 </table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel"><b>NOUVELLE TACHE</b></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label"><b>Description:</b></label>
+                    <input type="text" class="form-control form-control-lg" id="descriptiontext">
+                    </div>
+                  <div class="modal-horizontal">
+                    <input type="submit" value="Envoyer" class="bbtn btn-default btn-lg btn-block"/>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  
