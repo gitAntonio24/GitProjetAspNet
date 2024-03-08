@@ -160,6 +160,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DBConnection.cs" />
+    <Compile Include="Models\DBconnectionTache.cs" />
     <Compile Include="Models\LoginDBconnection.cs" />
     <Compile Include="Models\Tache.cs" />
     <Compile Include="Models\Utilisateur.cs" />
