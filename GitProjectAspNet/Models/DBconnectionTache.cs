@@ -14,7 +14,7 @@ namespace GitProjectAspNet.Models
            ConfigurationManager.ConnectionStrings["dataBaseConnection"].ConnectionString);
 
         public static void InsererTache(Tache tache) {
-            var req = $"INSERT INTO public.\"tache\"(tachenomutilisateur, description, statut) $VALUES ( '{tache.TacheNomUtilisateur}','{tache.Description}',false)";
+            var req = $"INSERT INTO public.\"tache\"(tachenomutilisateur, description, statut) VALUES ( '{tache.TacheNomUtilisateur}','{tache.Description}','{tache.Statut}')";
 
             try
             {

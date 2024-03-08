@@ -67,13 +67,29 @@
                 <h4 class="modal-title" id="exampleModalLabel"><b>NOUVELLE TACHE</b></h4>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label"><b>Description:</b></label>
-                    <input type="text" class="form-control form-control-lg" id="descriptiontext">
+                @using (Html.BeginForm("Create", "Tache", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label for="tachedescription" class="form-label">Todo</label>
+                        <input type="text" class="form-control" name="tachedescription">
                     </div>
-                  <div class="modal-horizontal">
-                    <input type="submit" value="Envoyer" class="bbtn btn-default btn-lg btn-block"/>
-                 </div>
+
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="state">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">check out</label>
+                    </div>
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Valider" class="btn btn-primary" />
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

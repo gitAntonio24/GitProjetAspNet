@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace GitProjectAspNet.Controllers
 {
@@ -17,7 +18,13 @@ namespace GitProjectAspNet.Controllers
             return View(_tache);
         }
 
+        public ActionResult Create(FormCollection form) {
 
+            var tache = new Tache(Session["username"].ToString(), form["tachedescription"], form["state"] == null ? false : true);
+            DBconnectionTache.InsererTache(tache);
+           
+            return RedirectToAction("Tache");
+        }
    
     }
 }
