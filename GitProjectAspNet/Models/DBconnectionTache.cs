@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Windows.Documents;
 
 namespace GitProjectAspNet.Models
 {
@@ -18,6 +15,29 @@ namespace GitProjectAspNet.Models
         public static List<Tache> AfficherListeTache() { 
             
             List<Tache> liste = new List<Tache>();
+            var req = $"SELECT * FROM public.\"tache\"";
+            var conn = connectionString;
+            try 
+            {
+                conn.Open();
+                var cmd = new NpgsqlCommand(req,conn);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Tache tache = new Tache(reader.GetString(1),
+                                                reader.GetString(2),
+                                                reader.GetBoolean(3));
+
+                        liste.Add(tache);
+                    }
+                }
+                conn.Close();
+            }
+            catch(Exception ex) 
+            {
+                throw ex; 
+            }
 
             return liste;
         }

@@ -15,14 +15,17 @@ namespace GitProjectAspNet.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            
             return View();
         }
 
         [HttpPost]
         public ActionResult Login(Utilisateur utilisateur)
         {
+            
             if (LoginDBconnection.authentification(utilisateur))
             {
+                Session["username"] = utilisateur.NomUtilisateur;
                 return RedirectToRoute("Dashboard");  // OR RedirectToAction("TodoList", "TodoTask");
             }
             else
