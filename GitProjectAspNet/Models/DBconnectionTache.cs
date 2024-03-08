@@ -29,6 +29,22 @@ namespace GitProjectAspNet.Models
             }    
     }
 
+        public static void SupprimerTache(int id)
+        {
+            var req = $"DELETE FROM public.\"tache\" WHERE idtache='{id}'";
+            try
+            {
+                connectionString.Open();
+                var cmd = new NpgsqlCommand(req, connectionString);
+                cmd.ExecuteNonQuery();
+                connectionString.Close();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static List<Tache> AfficherListeTache(string username) { 
             
             List<Tache> liste = new List<Tache>();
@@ -42,7 +58,8 @@ namespace GitProjectAspNet.Models
                 {
                     while (reader.Read())
                     {
-                        Tache tache = new Tache(reader.GetString(1),
+                        Tache tache = new Tache(reader.GetInt32(0),
+                                                reader.GetString(1),
                                                 reader.GetString(2),
                                                 reader.GetBoolean(3));
 

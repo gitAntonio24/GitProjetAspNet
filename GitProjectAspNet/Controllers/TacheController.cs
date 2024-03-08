@@ -25,6 +25,12 @@ namespace GitProjectAspNet.Controllers
            
             return RedirectToAction("Tache");
         }
+
+        public ActionResult Delete(int id)
+        {
+            DBconnectionTache.SupprimerTache(id);
+            return RedirectToAction("Tache");
+        }
    
     }
 }
