@@ -20,8 +20,8 @@ namespace GitProjectAspNet
             );
 
             routes.MapRoute(
-               name: "Dashboard",
-               url: "Dashboard/Dashboard"
+               name: "Tache",
+               url: "Tache/Tache"
                );
 
 

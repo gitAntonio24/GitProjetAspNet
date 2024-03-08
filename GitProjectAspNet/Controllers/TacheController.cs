@@ -11,8 +11,9 @@ namespace GitProjectAspNet.Controllers
     {
         // GET: Tache
         public ActionResult Tache()
-        {
-            List<Tache> _tache = DBconnectionTache.AfficherListeTache();
+        {   
+            
+            List<Tache> _tache = DBconnectionTache.AfficherListeTache(Session["username"].ToString());
             return View(_tache);
         }
     }

@@ -26,7 +26,7 @@ namespace GitProjectAspNet.Controllers
             if (LoginDBconnection.authentification(utilisateur))
             {
                 Session["username"] = utilisateur.NomUtilisateur;
-                return RedirectToRoute("Dashboard");  // OR RedirectToAction("TodoList", "TodoTask");
+                return RedirectToRoute("Tache");  // OR RedirectToAction("TodoList", "TodoTask");
             }
             else
             {

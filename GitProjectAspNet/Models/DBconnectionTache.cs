@@ -12,10 +12,10 @@ namespace GitProjectAspNet.Models
 
         public static void InsererTache() { }
 
-        public static List<Tache> AfficherListeTache() { 
+        public static List<Tache> AfficherListeTache(string username) { 
             
             List<Tache> liste = new List<Tache>();
-            var req = $"SELECT * FROM public.\"tache\"";
+            var req = $"SELECT * FROM public.tache where tachenomutilisateur='{username}'";
             var conn = connectionString;
             try 
             {
