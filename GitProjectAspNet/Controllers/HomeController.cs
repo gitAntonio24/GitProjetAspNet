@@ -26,5 +26,9 @@ namespace GitProjectAspNet.Controllers
 
             return View();
         }
+
+        public ActionResult connection() {
+            return RedirectToRoute("Login");
+        }
     }
 }

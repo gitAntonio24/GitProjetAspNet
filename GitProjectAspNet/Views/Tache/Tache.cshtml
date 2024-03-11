@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<GitProjectAspNet.Models.Tache>
 
 @{
-    ViewBag.Title = "Tache";
+    ViewBag.Title = "Liste des Tâches";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Tache</h2>
+<h2>Liste des Tâches</h2>
 
 <p>
-    <!-- @Html.ActionLink("Ajouter tache", "Login")-->
-    <button type="button" class="btn btn-Secondary" data-toggle="modal" data-target="#exampleModal">
-        Ajouter tache
+    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#addTask">
+        Nouveau
     </button>
 </p>
 
@@ -21,10 +20,10 @@
             @Html.DisplayNameFor(model => model.IdTache)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Statut)
+            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Statut)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TacheNomUtilisateur)
@@ -38,26 +37,66 @@
             <td>
                 @Html.DisplayFor(modelItem => item.IdTache)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Statut)
-            </td>
-            <td>
+            <td id="description_@item.IdTache">
                 @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td id="statut_@item.IdTache">
+                @Html.DisplayFor(modelItem => item.Statut, new { @class = "form-check-input", @id = "statut" + item.IdTache })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TacheNomUtilisateur)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.IdTache } , new { @class = "btn btn-outline-primary" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.IdTache } , new { @class = "btn btn-outline-success" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.IdTache } , new {@class = "btn btn-outline-danger" })
+                <button type="button" id="@item.IdTache" class="btn btn-info btn-xs" data-toggle="modal" data-target="#EditTask" data-description="@item.Description" onclick="updateFields(@item.IdTache)">
+                    Modifier
+                </button>
+                @Html.ActionLink("Supprimer", "Delete", new { id = item.IdTache }, new { @class = "btn btn-danger btn-xs" })
             </td>
         </tr>
 
+
+        <div class="modal fade" id="EditTask" tabindex="-1" role="dialog" aria-labelledby="editTaskLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="editTaskLabel">Modifier Tâche</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("EditTask", "Tache", new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" id="idTacheInput" name="idTache" />
+
+                            <div class="form-group mb-3">
+                                <label for="tacheDescriptionInput" class="form-label">Todo</label>
+                                <input type="text" class="form-control" id="tacheDescriptionInput" name="tachenoms" />
+                            </div>
+
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="tacheStateInput" name="states">
+                                <label class="form-check-label" for="tacheStateInput">check out</label>
+                            </div>
+
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-xs" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-success btn-xs">Valider</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 </table>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -95,4 +134,18 @@
     </div>
 </div>
 
-  
+
+<script>
+    function updateFields(id) {
+        document.getElementById('idTacheInput').value = id;
+
+        var descriptionTd = document.getElementById('description_' + id);
+        var stateTd = document.getElementById('statut_' + id);
+
+        var tacheDescriptionInput = document.getElementById('tacheDescriptionInput');
+        var tacheStateInput = document.getElementById('tacheStateInput');
+
+        tacheDescriptionInput.value = descriptionTd.innerText.trim();
+        tacheStateInput.checked = stateTd.querySelector('input[type="checkbox"]').checked;
+    }
+</script>

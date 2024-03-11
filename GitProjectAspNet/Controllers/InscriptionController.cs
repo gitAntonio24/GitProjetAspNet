@@ -21,7 +21,7 @@ namespace GitProjectAspNet.Controllers
            if(utilisateur != null)
             {
                 DBConnection.Inscription(utilisateur);
-                return Content($"<h1>Inscription reussi");
+                return RedirectToRoute("Login");
             }
             else
             {

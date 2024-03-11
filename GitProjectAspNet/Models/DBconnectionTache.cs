@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 using System.Windows;
 
 namespace GitProjectAspNet.Models
@@ -48,7 +49,7 @@ namespace GitProjectAspNet.Models
         public static List<Tache> AfficherListeTache(string username) { 
             
             List<Tache> liste = new List<Tache>();
-            var req = $"SELECT * FROM public.tache where tachenomutilisateur='{username}'";
+            var req = $"SELECT * FROM public.tache where tachenomutilisateur='{username}' ORDER BY idtache ASC";
             var conn = connectionString;
             try 
             {
@@ -74,6 +75,23 @@ namespace GitProjectAspNet.Models
             }
 
             return liste;
+        }
+
+        public static void ModifierTache(int idTache, Tache tache)
+        {
+            var req = $"UPDATE public.\"tache\" SET description='{tache.Description}', statut='{tache.Statut}' WHERE idtache='{idTache}'";
+
+            try
+            {
+                connectionString.Open();
+                var cmd = new NpgsqlCommand(req, connectionString);
+                cmd.ExecuteNonQuery();
+                connectionString.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

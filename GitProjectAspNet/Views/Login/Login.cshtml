@@ -1,11 +1,11 @@
 ﻿@model GitProjectAspNet.Models.Utilisateur
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "connexion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Login</h2>
+<h2>Se connecter</h2>
 
 
 @using (Html.BeginForm())
@@ -13,7 +13,6 @@
 @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Utilisateur</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -34,9 +33,9 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Login" class="btn btn-default" />
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Ouvrir la modale
+            <input type="submit" value="Se connecter" class="btn btn-default btn-xs" />
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#inscriptionModal">
+                S'inscrire
             </button>
         </div>
     </div>
@@ -46,59 +45,58 @@
 
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="inscriptionModal" tabindex="-1" role="dialog" aria-labelledby="editTaskLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            @using (Html.BeginForm("Inscription", "Inscription", FormMethod.Post))
-{
-            @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-                <h4>Inscription</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.NomUtilisateur, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.NomUtilisateur, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.NomUtilisateur, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.MotdePasse, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.MotdePasse, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.MotdePasse, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-                </div>
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="editTaskLabel">Veuillez remplir le formulaire</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-}
+            <div class="modal-body" style="display:flex; flex-direction:row; justify-content:center;">
+                @using (Html.BeginForm("Inscription", "Inscription", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
 
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="NomUtilisateur" style="margin-left:4mm;" class="col-form-label">Nom d'utilisateur</label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.NomUtilisateur, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.NomUtilisateur, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Email" style="margin-left:4mm;" class="col-form-label">Adresse email</label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MotdePasse" style="margin-left:4mm;" class="col-form-label">Mot de passe</label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.MotdePasse, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.MotdePasse, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-0 col-md-12">
+                                <input type="submit" value="Valider Inscription" class="btn btn-primary btn-block" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
 
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

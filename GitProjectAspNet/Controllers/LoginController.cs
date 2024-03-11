@@ -30,8 +30,14 @@ namespace GitProjectAspNet.Controllers
             }
             else
             {
-                return Content($"<h1> Username or password doesn't match </hi>");
+                return RedirectToAction("Login");
             }
+        }
+
+        public ActionResult Logout()
+        {
+            Session["username"] = null;
+            return RedirectToAction("Index", "Home");
         }
 
     }

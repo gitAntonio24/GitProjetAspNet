@@ -12,10 +12,15 @@ namespace GitProjectAspNet.Controllers
     {
         // GET: Tache
         public ActionResult Tache()
-        {   
-            
-            List<Tache> _tache = DBconnectionTache.AfficherListeTache(Session["username"].ToString());
-            return View(_tache);
+        {  
+            if (Session["username"] == null)
+            {
+                return RedirectToRoute("Login");
+            }
+            else {
+                List<Tache> _tache = DBconnectionTache.AfficherListeTache(Session["username"].ToString());
+                return View(_tache);
+            }
         }
 
         public ActionResult Create(FormCollection form) {
@@ -31,6 +36,14 @@ namespace GitProjectAspNet.Controllers
             DBconnectionTache.SupprimerTache(id);
             return RedirectToAction("Tache");
         }
-   
+
+        [HttpPost]
+        public ActionResult EditTask(FormCollection form)
+        {
+            var tache = new Tache(Session["username"].ToString(), form["tachenoms"], form["states"] == null ? false : true);
+            DBconnectionTache.ModifierTache(int.Parse(form["idTache"]), tache);
+            return RedirectToAction("Tache");
+        }
+
     }
 }

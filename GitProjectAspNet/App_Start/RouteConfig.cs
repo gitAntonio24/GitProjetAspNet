@@ -24,7 +24,10 @@ namespace GitProjectAspNet
                url: "Tache/Tache"
                );
 
-
+            routes.MapRoute(
+               name: "Login",
+               url: "Login/Login"
+               );
         }
     }
 }
